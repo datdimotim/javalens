@@ -1,10 +1,12 @@
-package com.dimotim.lensjava.codegen;
+package com.dimotim.lensjava.codegen.test;
 
 
+import com.dimotim.lensjava.codegen.MakeLens;
 import lombok.Value;
 import lombok.With;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Test;
+
 
 public class CodegenTest {
     @Test
@@ -14,7 +16,7 @@ public class CodegenTest {
 
         String r = PersonL.name.view(p);
 
-        Assertions.assertEquals(name, r);
+        Assert.assertEquals(name, r);
     }
 }
 
