@@ -1,11 +1,13 @@
 package com.dimotim.lensjava;
 
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import com.dimotim.lensjava.codegen.MakeLens;
 
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+@MakeLens
 public class LensUtils{
     public static <K,V> Lens<Map<K,V>,V> mapL(K key){
         return Lens.of(
@@ -31,6 +33,13 @@ public class LensUtils{
                     }
                     return copy;
                 }
+        );
+    }
+
+    public static <T> Traversal<List<T>, T> listTraversal(){
+        return Traversal.of(
+                Function.identity(),
+                (l, f) -> l.stream().map(f).collect(Collectors.toList())
         );
     }
 }
