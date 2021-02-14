@@ -1,13 +1,10 @@
 package com.dimotim.lensjava;
 
-
-import com.dimotim.lensjava.codegen.MakeLens;
-
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-@MakeLens
+
 public class LensUtils{
     public static <K,V> Lens<Map<K,V>,V> mapL(K key){
         return Lens.of(

@@ -74,7 +74,7 @@ public class MakeLensProcessor extends AbstractProcessor {
             }
 
             // Write import lens
-            out.println("import com.dimotim.lensjava.Lens;%n%n");
+            out.println("import com.dimotim.lensjava.Lens;");
 
             // Write class name
             out.printf("public class %s {%n",builderClassName);
