@@ -1,9 +1,8 @@
 package com.dimotim.lensjava.codegen.test;
 
 
-import com.dimotim.lensjava.codegen.MakeLens;
-import lombok.Value;
-import lombok.With;
+import com.dimotim.lensjava.codegen.test.model.Person;
+import com.dimotim.lensjava.codegen.test.model.PersonL;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -20,10 +19,3 @@ public class CodegenTest {
     }
 }
 
-@MakeLens
-@With
-@Value
-class Person{
-    String name;
-    Integer age;
-}

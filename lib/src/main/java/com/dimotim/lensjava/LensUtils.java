@@ -39,5 +39,12 @@ public class LensUtils{
                 (l, f) -> l.stream().map(f).collect(Collectors.toList())
         );
     }
+
+    public static <T> Prism<T, T> nullP(){
+        return Prism.of(
+                Optional::ofNullable,
+                Function.identity()
+        );
+    }
 }
 
