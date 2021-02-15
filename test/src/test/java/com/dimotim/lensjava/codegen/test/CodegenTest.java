@@ -1,11 +1,13 @@
 package com.dimotim.lensjava.codegen.test;
 
 
+import com.dimotim.lensjava.LensUtils;
 import com.dimotim.lensjava.codegen.test.model.*;
 import com.dimotim.lensjava.codegen.test.model.inner_package.Address;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.function.Function;
 
 
@@ -42,6 +44,13 @@ public class CodegenTest {
     public void makeLensBoolGetterTest(){
         Function<PrimitiveTestEntity, Boolean> f = PrimitiveTestEntityL.aBoolean::view;
         Function<PrimitiveTestEntity, Boolean> f2 = PrimitiveTestEntityL.aBooleanBoxed::view;
+    }
+
+    @Test
+    public void makeLensGenericTest(){
+        Function<School, List<Integer>> ages = SchoolL.persons
+                .compose(LensUtils.listTraversal())
+                .compose(PersonL.age)::list;
     }
 }
 
