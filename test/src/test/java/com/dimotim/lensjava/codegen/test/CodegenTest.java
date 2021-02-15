@@ -1,10 +1,7 @@
 package com.dimotim.lensjava.codegen.test;
 
 
-import com.dimotim.lensjava.codegen.test.model.City;
-import com.dimotim.lensjava.codegen.test.model.CityL;
-import com.dimotim.lensjava.codegen.test.model.Person;
-import com.dimotim.lensjava.codegen.test.model.PersonL;
+import com.dimotim.lensjava.codegen.test.model.*;
 import com.dimotim.lensjava.codegen.test.model.inner_package.Address;
 import org.junit.Assert;
 import org.junit.Test;
@@ -27,6 +24,24 @@ public class CodegenTest {
     public void makeLensPackageTest(){
         Function<City, Address> f = CityL.address::view;
         Function<City, com.dimotim.lensjava.codegen.test.model.Object> ff = CityL.object::view;
+    }
+
+    @Test
+    public void makeLensPrimitiveTest(){
+        Function<PrimitiveTestEntity, Boolean> f1 = PrimitiveTestEntityL.aBoolean::view;
+        Function<PrimitiveTestEntity, Byte> f2 = PrimitiveTestEntityL.aByte::view;
+        Function<PrimitiveTestEntity, Short> f3 = PrimitiveTestEntityL.aShort::view;
+        Function<PrimitiveTestEntity, Character> f4 = PrimitiveTestEntityL.aChar::view;
+        Function<PrimitiveTestEntity, Integer> f5 = PrimitiveTestEntityL.anInt::view;
+        Function<PrimitiveTestEntity, Long> f6 = PrimitiveTestEntityL.aLong::view;
+        Function<PrimitiveTestEntity, Float> f7 = PrimitiveTestEntityL.aFloat::view;
+        Function<PrimitiveTestEntity, Double> f8 = PrimitiveTestEntityL.aDouble::view;
+    }
+
+    @Test
+    public void makeLensBoolGetterTest(){
+        Function<PrimitiveTestEntity, Boolean> f = PrimitiveTestEntityL.aBoolean::view;
+        Function<PrimitiveTestEntity, Boolean> f2 = PrimitiveTestEntityL.aBooleanBoxed::view;
     }
 }
 

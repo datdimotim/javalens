@@ -9,9 +9,11 @@ import javax.lang.model.element.VariableElement;
 import javax.tools.JavaFileObject;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @SupportedAnnotationTypes("com.dimotim.lensjava.codegen.MakeLens")
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
@@ -82,15 +84,38 @@ public class MakeLensProcessor extends AbstractProcessor {
 
             // Write setter methods
             fields.forEach((fieldName, fieldType) -> {
-                String getter = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+                String boxedType = convertTypeToGenericCompatible(fieldType);
+                String getter = evalGetterPrefix(fieldType) + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
                 String wither = "with" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
                 out.printf("  public static final Lens<%s,%s> %s = Lens.of(%s::%s, %s::%s);%n%n"
-                        ,className,fieldType,fieldName,className,getter, className, wither);
+                        ,className,boxedType,fieldName,className,getter, className, wither);
             });
 
             // Close class
             out.print("}");
         }
+    }
+
+    private static String evalGetterPrefix(String type){
+        if(type.equals("boolean") || type.equals("Boolean")){
+            return "is";
+        } else {
+            return "get";
+        }
+    }
+
+    private static String convertTypeToGenericCompatible(String type){
+        Map<String, String> box = new HashMap<>();
+        box.put("byte", "Byte");
+        box.put("short", "Short");
+        box.put("char", "Character");
+        box.put("int", "Integer");
+        box.put("long", "Long");
+        box.put("boolean", "Boolean");
+        box.put("float", "Float");
+        box.put("double", "Double");
+
+        return box.getOrDefault(type,type);
     }
 
     /*
